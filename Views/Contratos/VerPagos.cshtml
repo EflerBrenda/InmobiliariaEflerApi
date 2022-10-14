@@ -1,0 +1,61 @@
+@model IEnumerable<InmobiliariaEfler.Models.Pago>
+
+@{
+    ViewData["Title"] = "Ver pagos del contrato";
+}
+
+<h1>Pagos</h1>
+
+<p>
+    <a asp-controller="Pagos" asp-action="Create">Crear nuevo pago</a>
+</p>
+<p>
+    <a asp-action="Index">Volver atrás</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Importe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContrato)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroPago)
+                    </td>
+                    <td>
+                        @(item.FechaPago.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Importe)
+                    </td>
+                    <td>
+                        @(item.IdContrato + "---"+item.Contrato.Inmueble.Direccion+"---"+item.Contrato.Inquilino.Apellido)
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <td class="text-center" colspan="4">Todavia no hay pagos registrados, <a asp-controller="Pagos"
+                asp-action="Create">Presione aquí para crear
+                    uno.</a></td>
+        }
+    </tbody>
+</table>

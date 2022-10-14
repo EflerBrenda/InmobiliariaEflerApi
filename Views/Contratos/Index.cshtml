@@ -1,0 +1,89 @@
+@model IEnumerable<InmobiliariaEfler.Models.Contrato>
+
+@{
+    ViewData["Title"] = "Ver contratos";
+}
+
+<h1>Contratos</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo</a>
+</p>
+<p>
+    <a asp-action="VerContratosVigentes">Ver contratos vigentes</a>
+</p>
+<p>
+    <a asp-action="VerContratosNoVigentes">Ver contratos no vigentes</a>
+</p>
+<p>
+    <a asp-action="FiltrarDisponibles">Filtrar inmuebles disponibles</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDesde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHasta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdInmueble)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdInquilino)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @(item.FechaDesde.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @(item.FechaHasta.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MontoAlquiler)
+                    </td>
+                    <td>
+                        @(item.Inmueble.Direccion)
+                    </td>
+                    <td>
+                        @(item.Inquilino.Nombre+" "+item.Inquilino.Apellido)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Detalles", "Details", new { id=item.Id}) |
+                        @Html.ActionLink("Ver pagos", "VerPagos", new { id=item.Id })
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <label>|</label>
+                            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+                        }
+                    </td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            <td class="text-center" colspan="6">Todavia no hay contratos registrados, <a asp-action="Create">Presione aquí
+                    para crear uno.</a></td>
+        }
+    </tbody>
+</table>

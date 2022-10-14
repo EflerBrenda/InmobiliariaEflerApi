@@ -1,0 +1,88 @@
+@model IEnumerable<InmobiliariaEfler.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Ver inmuebles";
+}
+
+<h1>Inmuebles</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo</a>
+</p>
+<p>
+    <a asp-action="VerDisponibles">Ver inmuebles disponibles</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfertaActiva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPropietario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ambientes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsoNombre)
+                    </td>
+                    <td>
+                        @(item.OfertaActiva?"SI":"NO")
+                    </td>
+                    <td>
+                        @(item.Duenio.Nombre+" "+item.Duenio.Apellido)
+                    </td>
+                    <td>
+                        @(item.TipoInmueble.Descripcion)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new {id=item.Id}) |
+                        @Html.ActionLink("Detalles", "Details", new {id=item.Id}) |
+                        @Html.ActionLink("Ver contratos", "VerContratos", new {id=item.Id})
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <label>|</label>
+                            @Html.ActionLink("Borrar", "Delete", new {id=item.Id})
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td class="text-center" colspan="7">Todavia no hay inmuebles registrados, <a asp-action="Create">Presione aquí
+                    para crear uno.</a></td>
+        }
+    </tbody>
+</table>

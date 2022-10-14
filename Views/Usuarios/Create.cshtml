@@ -1,0 +1,63 @@
+@model InmobiliariaEfler.Models.Usuario
+
+@{
+    ViewData["Title"] = "Crear usuario";
+}
+
+<h1>Crear</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input type="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvatarFile" class="control-label"></label>
+                <input type="file" asp-for="AvatarFile" class="form-control" />
+                <span asp-validation-for="AvatarFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Rol</label>
+                <select class="form-control" name="Rol">
+                    @foreach (var rol in (IDictionary<int, string>)ViewBag.Roles)
+                    {
+                        <option value="@rol.Key">@rol.Value</option>
+                    }
+                </select>
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver atrás</a>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,23 @@
+@model InmobiliariaEfler.Models.TipoInmueble
+
+@{
+    ViewData["Title"] = "Detalle de tipo de inmueble";
+}
+
+<h1>Detalle de tipo de inmueble</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Volver atrás</a>
+</div>

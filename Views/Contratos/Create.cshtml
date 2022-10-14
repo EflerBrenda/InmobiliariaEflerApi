@@ -1,0 +1,64 @@
+@model InmobiliariaEfler.Models.Contrato
+
+@{
+    ViewData["Title"] = "Crear contrato";
+}
+
+<h1>Crear contrato</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FechaDesde" class="control-label"></label>
+                <input type="date" asp-for="FechaDesde" class="form-control"
+                    value=@DateTime.Today.Date.ToString("yyyy-MM-dd") />
+                <span asp-validation-for="FechaDesde" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaHasta" class="control-label"></label>
+                <input type="date" asp-for="FechaHasta" class="form-control"
+                    value=@DateTime.Today.Date.ToString("yyyy-MM-dd") />
+                <span asp-validation-for="FechaHasta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoAlquiler" class="control-label"></label>
+                <input asp-for="MontoAlquiler" class="form-control" />
+                <span asp-validation-for="MontoAlquiler" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Inmueble</label>
+                <select class="form-control" name="IdInmueble">
+                    @foreach (var item in (IList<Inmueble>)ViewBag.Inmuebles)
+                    {
+                        <option value="@item.Id">@(item.Direccion)</option>
+                    }
+                </select>
+                <span asp-validation-for="IdInmueble" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Inquilino</label>
+                <select class="form-control" name="IdInquilino">
+                    @foreach (var item in (IList<Inquilino>)ViewBag.Inquilinos)
+                    {
+                        <option value="@item.Id">@(item.Nombre + " " + item.Apellido)</option>
+                    }
+                </select>
+                <span asp-validation-for="IdInmueble" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver atrás</a>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

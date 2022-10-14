@@ -1,0 +1,20 @@
+@model InmobiliariaEfler.Models.Usuario
+@{
+    ViewData["Title"] = "Restringido";
+}
+
+<h1>Restringido</h1>
+
+<p>No tiene permisos suficientes para acceder al recurso.</p>
+
+<div>
+    @if (User.IsInRole("Administrador"))
+    {
+
+        <a asp-action="Index">Volver atrás</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index">Volver atrás</a>
+    }
+</div>

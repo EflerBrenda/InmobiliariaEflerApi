@@ -1,0 +1,77 @@
+@model IEnumerable<InmobiliariaEfler.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Ver inmuebles disponibles";
+}
+
+<h1>Inmuebles disponibles</h1>
+
+<p>
+    <a asp-action="Index">Volver atrás</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfertaActiva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPropietario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTipo)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ambientes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsoNombre)
+                    </td>
+                    <td>
+                        @(item.OfertaActiva?"SI":"NO")
+                    </td>
+                    <td>
+                        @(item.Duenio.Nombre+" "+item.Duenio.Apellido)
+                    </td>
+                    <td>
+                        @(item.TipoInmueble.Descripcion)
+                    </td>
+                </tr>
+            }
+
+        }
+        else
+        {
+            <td class="text-center" colspan="7">Todavia no hay inmuebles registrados, <a asp-controller="Inmuebles"
+                asp-action="Create">Presione aquí para
+                    crear uno.</a></td>
+        }
+    </tbody>
+</table>

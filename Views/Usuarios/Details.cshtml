@@ -1,0 +1,56 @@
+@model InmobiliariaEfler.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalle de Usuario";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Avatar)
+        </dt>
+        <dd class="col-sm-10">
+            <img width="32" src="@Model.Avatar" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rol)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RolNombre)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @if (User.IsInRole("Administrador"))
+    {
+
+        <a asp-action="Index">Volver atrás</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index">Volver atrás</a>
+    }
+</div>

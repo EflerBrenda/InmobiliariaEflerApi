@@ -1,0 +1,42 @@
+@model InmobiliariaEfler.Models.Pago
+
+@{
+    ViewData["Title"] = "Detalles de pago";
+}
+
+<h1>Detalles de pago</h1>
+
+<div>
+    <h4>Pago</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroPago)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroPago)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.FechaPago.Date.ToString("dd/MM/yyyy"))
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Importe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Importe)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdContrato)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.IdContrato + "---"+Model.Contrato.Inmueble.Direccion+"---"+Model.Contrato.Inquilino.Apellido)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Volver atrás</a>
+</div>

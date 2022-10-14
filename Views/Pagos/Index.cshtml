@@ -1,0 +1,66 @@
+@model IEnumerable<InmobiliariaEfler.Models.Pago>
+
+@{
+    ViewData["Title"] = "Ver pagos";
+}
+
+<h1>Pagos</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Importe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContrato)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroPago)
+                    </td>
+                    <td>
+                        @(item.FechaPago.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Importe)
+                    </td>
+                    <td>
+                        @(item.IdContrato + "---"+item.Contrato.Inmueble.Direccion+"---"+item.Contrato.Inquilino.Apellido)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Detalles", "Details", new { id=item.Id })
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <label>|</label>
+                            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td class="text-center" colspan="4">Todavia no hay pagos registrados, <a asp-action="Create">Presione aquí para
+                    crear uno.</a></td>
+        }
+    </tbody>
+</table>

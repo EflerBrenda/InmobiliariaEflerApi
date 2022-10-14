@@ -1,0 +1,74 @@
+@model IEnumerable<InmobiliariaEfler.Models.Contrato>
+
+@{
+    ViewData["Title"] = "Ver contratos no vigentes";
+}
+
+<h1>Contratos no vigentes</h1>
+
+<p>
+    <a asp-action="Index">Volver atrás</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDesde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHasta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdInmueble)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdInquilino)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() != 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @(item.FechaDesde.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @(item.FechaHasta.Date.ToString("dd/MM/yyyy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MontoAlquiler)
+                    </td>
+                    <td>
+                        @(item.Inmueble.Direccion)
+                    </td>
+                    <td>
+                        @(item.Inquilino.Nombre+" "+item.Inquilino.Apellido)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Renovar", "RenovarContrato", new { id=item.Id })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <td class="text-center" colspan="6">Todavia no hay contratos registrados, <a asp-controller="Contratos"
+                asp-action="Create">Presione
+                    aquí para
+                    crear uno.</a></td>
+        }
+    </tbody>
+</table>
